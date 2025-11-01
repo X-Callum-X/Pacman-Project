@@ -95,8 +95,6 @@ public class BlinkyAngerControllwe: MonoBehaviour
             {
                 this.spriteRenderer.sprite = this.right;
             }
-
-            this.movement.speed = 7.0f;
         }
     }
 }
