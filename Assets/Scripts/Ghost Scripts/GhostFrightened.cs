@@ -14,6 +14,7 @@ public class GhostFrightened : GhostBehaviour
 
     private GameManager gameManager;
     private SpriteRenderer pacmanSprite;
+    private PauseManager pauseManager;
 
     public float delayDuration = 1.25f;
 
@@ -22,6 +23,7 @@ public class GhostFrightened : GhostBehaviour
     private void Start()
     {
         pacmanSprite = GameObject.Find("Pacman").GetComponent<SpriteRenderer>();
+        pauseManager = FindFirstObjectByType<PauseManager>();
         gameManager = FindFirstObjectByType<GameManager>();
     }
 
@@ -69,6 +71,7 @@ public class GhostFrightened : GhostBehaviour
         this.eaten = true;
 
         StopAllCoroutines();
+
         StartCoroutine(DelayAfterEaten(0f, 1f, delayDuration));
 
         Vector3 position = this.ghost.house.inside.position;
@@ -78,7 +81,7 @@ public class GhostFrightened : GhostBehaviour
         this.ghost.house.Enable(this.duration);
 
         this.body.enabled = false;
-        this.eyes.enabled = true;
+        this.eyes.enabled = false;
         this.blue.enabled = false;
         this.white.enabled = false;
     }
@@ -160,6 +163,7 @@ public class GhostFrightened : GhostBehaviour
         pacmanSprite.enabled = false;
         ghostScoreText.text = (this.ghost.points * (this.gameManager.ghostMultiplier / 2)).ToString();
         ghostScoreText.gameObject.SetActive(true);
+        pauseManager.canPause = false;
 
         while (timer < duration)
         {
@@ -176,5 +180,7 @@ public class GhostFrightened : GhostBehaviour
         Time.timeScale = endScale;
         pacmanSprite.enabled = true;
         ghostScoreText.gameObject.SetActive(false);
+        this.eyes.enabled = true;
+        pauseManager.canPause = true;
     }
 }
