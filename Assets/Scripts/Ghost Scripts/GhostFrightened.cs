@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditorInternal;
 using UnityEngine;
+using TMPro;
 
 public class GhostFrightened : GhostBehaviour
 {
@@ -11,7 +10,9 @@ public class GhostFrightened : GhostBehaviour
     public SpriteRenderer eyes;
     public SpriteRenderer blue;
     public SpriteRenderer white;
+    public TMP_Text ghostScoreText;
 
+    private GameManager gameManager;
     private SpriteRenderer pacmanSprite;
 
     public float delayDuration = 1.25f;
@@ -21,6 +22,7 @@ public class GhostFrightened : GhostBehaviour
     private void Start()
     {
         pacmanSprite = GameObject.Find("Pacman").GetComponent<SpriteRenderer>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     public override void Enable(float duration)
@@ -106,8 +108,28 @@ public class GhostFrightened : GhostBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Makes the ghosts move in random directions
+        Node node = other.GetComponent<Node>();
+
+        if (node != null && this.enabled)
+        {
+            int index = Random.Range(0, node.availableDirections.Count);
+
+            if (node.availableDirections[index] == -this.ghost.movement.direction && node.availableDirections.Count >= 1)
+            {
+                index++;
+
+                if (index >= node.availableDirections.Count)
+                {
+                    index = 0;
+                }
+            }
+
+            this.ghost.movement.SetDirection(node.availableDirections[index]);
+        }
+
         //// This commented code makes the ghosts move directly away from Pacman
-        
+
         //Node node = other.GetComponent<Node>();
 
         //if (node != null && this.enabled)
@@ -129,26 +151,6 @@ public class GhostFrightened : GhostBehaviour
 
         //    this.ghost.movement.SetDirection(direction);
         //}
-
-        // Makes the ghosts move in random directions
-        Node node = other.GetComponent<Node>();
-
-        if (node != null && this.enabled)
-        {
-            int index = Random.Range(0, node.availableDirections.Count);
-
-            if (node.availableDirections[index] == -this.ghost.movement.direction && node.availableDirections.Count >= 1)
-            {
-                index++;
-
-                if (index >= node.availableDirections.Count)
-                {
-                    index = 0;
-                }
-            }
-
-            this.ghost.movement.SetDirection(node.availableDirections[index]);
-        }
     }
 
     private IEnumerator DelayAfterEaten(float startScale, float endScale, float duration)
@@ -156,14 +158,15 @@ public class GhostFrightened : GhostBehaviour
         float timer = 0f;
         Time.timeScale = startScale; // Ensure it starts at 0
         pacmanSprite.enabled = false;
+        ghostScoreText.text = (this.ghost.points * (this.gameManager.ghostMultiplier / 2)).ToString();
+        ghostScoreText.gameObject.SetActive(true);
 
         while (timer < duration)
         {
-            Debug.Log("timer");
             // Use Time.unscaledDeltaTime because deltaTime is affected by timeScale
             timer += Time.unscaledDeltaTime;
 
-            // Calculate the new timescale using Lerp
+            //// Calculate the new timescale using Lerp
             //Time.timeScale = Mathf.Lerp(startScale, endScale, timer / duration);
 
             yield return null; // Wait until the next frame
@@ -172,5 +175,6 @@ public class GhostFrightened : GhostBehaviour
         // Ensure the final value is exactly 1.0f
         Time.timeScale = endScale;
         pacmanSprite.enabled = true;
+        ghostScoreText.gameObject.SetActive(false);
     }
 }
