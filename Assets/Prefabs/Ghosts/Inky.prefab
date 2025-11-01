@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2545184827067784847, guid: 7a4f3b64cfc2bf94f8cd8a16d2e82fd2, type: 3}
+      propertyPath: delayDuration
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4367684058078615956, guid: 7a4f3b64cfc2bf94f8cd8a16d2e82fd2, type: 3}
       propertyPath: m_Sprite
       value: 
