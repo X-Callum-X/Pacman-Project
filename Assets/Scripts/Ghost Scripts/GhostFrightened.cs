@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class GhostFrightened : GhostBehaviour
@@ -10,7 +12,16 @@ public class GhostFrightened : GhostBehaviour
     public SpriteRenderer blue;
     public SpriteRenderer white;
 
+    private SpriteRenderer pacmanSprite;
+
+    public float delayDuration = 1.25f;
+
     public bool eaten { get; private set; }
+
+    private void Start()
+    {
+        pacmanSprite = GameObject.Find("Pacman").GetComponent<SpriteRenderer>();
+    }
 
     public override void Enable(float duration)
     {
@@ -54,6 +65,9 @@ public class GhostFrightened : GhostBehaviour
     private void Eaten()
     {
         this.eaten = true;
+
+        StopAllCoroutines();
+        StartCoroutine(DelayAfterEaten(0f, 1f, delayDuration));
 
         Vector3 position = this.ghost.house.inside.position;
         position.z = this.ghost.transform.position.z;
@@ -135,5 +149,28 @@ public class GhostFrightened : GhostBehaviour
 
             this.ghost.movement.SetDirection(node.availableDirections[index]);
         }
+    }
+
+    private IEnumerator DelayAfterEaten(float startScale, float endScale, float duration)
+    {
+        float timer = 0f;
+        Time.timeScale = startScale; // Ensure it starts at 0
+        pacmanSprite.enabled = false;
+
+        while (timer < duration)
+        {
+            Debug.Log("timer");
+            // Use Time.unscaledDeltaTime because deltaTime is affected by timeScale
+            timer += Time.unscaledDeltaTime;
+
+            // Calculate the new timescale using Lerp
+            //Time.timeScale = Mathf.Lerp(startScale, endScale, timer / duration);
+
+            yield return null; // Wait until the next frame
+        }
+
+        // Ensure the final value is exactly 1.0f
+        Time.timeScale = endScale;
+        pacmanSprite.enabled = true;
     }
 }

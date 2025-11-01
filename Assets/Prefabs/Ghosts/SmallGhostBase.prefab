@@ -50,6 +50,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -101,10 +104,6 @@ MonoBehaviour:
   down: {fileID: 21300000, guid: b97167c35748db84fb4d32f4f242922a, type: 3}
   left: {fileID: 21300000, guid: d65aa956b7569874fab274083826a77f, type: 3}
   right: {fileID: 21300000, guid: 07ddb51374d9f19458dad756bbbcd880, type: 3}
-  angryUp: {fileID: 21300000, guid: df1239145811086448f328d08bafdc7e, type: 3}
-  angryDown: {fileID: 21300000, guid: 386f3da8ed51f34408444f71455dca36, type: 3}
-  angryLeft: {fileID: 21300000, guid: 773139d57745a474e866db09ffc10100, type: 3}
-  angryRight: {fileID: 21300000, guid: 935b45c74c0fde74ba83bf5e69132dc4, type: 3}
 --- !u!1 &3902339422883580446
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +154,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -256,6 +258,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -357,6 +362,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -455,7 +463,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4704031356813236540
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -466,8 +474,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_LinearDamping: 0
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -488,6 +496,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8317656696704530666}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -511,9 +520,9 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
   m_Radius: 0.5
 --- !u!114 &7019995025637818976
 MonoBehaviour:
@@ -529,7 +538,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialBehaviour: {fileID: 0}
   gameManager: {fileID: 0}
-  target: {fileID: 0}
+  scatterTarget: {fileID: 0}
+  chaseTarget: {fileID: 0}
   points: 200
 --- !u!114 &5848615122576338165
 MonoBehaviour:
@@ -608,3 +618,4 @@ MonoBehaviour:
   eyes: {fileID: 4367684058078615956}
   blue: {fileID: 3126403676520172966}
   white: {fileID: 7522377078196882112}
+  delayDuration: 1.25
