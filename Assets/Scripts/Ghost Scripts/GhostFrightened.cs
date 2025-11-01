@@ -74,12 +74,6 @@ public class GhostFrightened : GhostBehaviour
 
         StartCoroutine(DelayAfterEaten(0f, 1f, delayDuration));
 
-        Vector3 position = this.ghost.house.inside.position;
-        position.z = this.ghost.transform.position.z;
-        this.ghost.transform.position = position;
-
-        this.ghost.house.Enable(this.duration);
-
         this.body.enabled = false;
         this.eyes.enabled = false;
         this.blue.enabled = false;
@@ -182,5 +176,11 @@ public class GhostFrightened : GhostBehaviour
         ghostScoreText.gameObject.SetActive(false);
         this.eyes.enabled = true;
         pauseManager.canPause = true;
+
+        Vector3 position = this.ghost.house.inside.position;
+        position.z = this.ghost.transform.position.z;
+        this.ghost.transform.position = position;
+
+        this.ghost.house.Enable(this.duration);
     }
 }

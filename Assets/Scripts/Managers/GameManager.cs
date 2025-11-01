@@ -378,6 +378,8 @@ public class GameManager : MonoBehaviour
 
     public void PowerPelletEaten(PowerPellet pellet)
     {
+        this.ghostMultiplier = 1;
+
         // Set all ghosts to frightened
         for (int i = 0; i < this.ghosts.Length; i++)
         {
@@ -399,6 +401,11 @@ public class GameManager : MonoBehaviour
         }
 
         SetScore(this.score + fruit.points);
+
+        fruit.fruitScoreText.text = (fruit.points).ToString();
+
+        StopAllCoroutines();
+        StartCoroutine(fruit.DisplayScoreText(2f));
     }
 
     private bool HasRemainingPellets()

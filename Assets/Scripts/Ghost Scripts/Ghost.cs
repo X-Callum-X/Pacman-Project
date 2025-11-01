@@ -36,6 +36,7 @@ public class Ghost : MonoBehaviour
     public void ResetState()
     {
         this.movement.ResetState();
+        this.movement.speed = 7.0f;
         this.gameObject.SetActive(true);
 
         this.frightened.Disable();
