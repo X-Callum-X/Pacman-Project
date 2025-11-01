@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -10,17 +8,17 @@ public class PauseManager : MonoBehaviour
     public AudioSource source;
     public AudioClip pauseSFX;
     public bool isPaused;
+    public bool canPause = true;
 
-    // Start is called before the first frame update
     void Start()
     {
         PauseMenu.SetActive(false);
+        canPause = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+        if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) && canPause)
         {
             if (!source.isPlaying)
             {
