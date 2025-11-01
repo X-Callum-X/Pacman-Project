@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 public class PowerPellet : Pellet
@@ -7,6 +8,8 @@ public class PowerPellet : Pellet
     public SpriteRenderer spriteRenderer { get; private set; }
     public GameManager gameManager;
     private int s = 0;
+
+    public PauseManager pauseManager;
 
     protected override void Eat()
     {
@@ -16,45 +19,49 @@ public class PowerPellet : Pellet
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        pauseManager = FindFirstObjectByType<PauseManager>();
     }
 
-    //private void Update()
-    //{
-    //    Invoke(nameof(StartBlinking), 0.175f);
-    //}
+    private void Update()
+    {
+        if (Time.timeScale != 0)
+        {
+            Invoke(nameof(StartBlinking), 0.175f);
+        }
+    }
 
-    //IEnumerator Blink()
-    //{
-    //    while (true)
-    //    {
-    //        switch (s.ToString())
-    //        {
-    //            case "0":
-    //                spriteRenderer.enabled = false;
-    //                yield return new WaitForSeconds(0.175f);
-    //                s = 1;
-    //                break;
-    //            case "1":
-    //                spriteRenderer.enabled = true;
-    //                yield return new WaitForSeconds(0.175f);
-    //                s = 0;
-    //                break;
-    //        }
-    //    }
-    //}
+    IEnumerator Blink()
+    {
+        while (true)
+        {
+            switch (s.ToString())
+            {
+                case "0":
+                    spriteRenderer.enabled = false;
+                    yield return new WaitForSeconds(0.175f);
+                    s = 1;
+                    break;
+                case "1":
+                    spriteRenderer.enabled = true;
+                    yield return new WaitForSeconds(0.175f);
+                    s = 0;
+                    break;
+            }
+        }
+    }
 
-    //private void StartBlinking()
-    //{
-    //    StopCoroutine(Blink());
+    private void StartBlinking()
+    {
+        StopCoroutine(Blink());
 
-    //    if (this.gameObject.activeSelf)
-    //    {
-    //        StartCoroutine(Blink());
-    //    }
-    //}
+        if (this.gameObject.activeSelf)
+        {
+            StartCoroutine(Blink());
+        }
+    }
 
-    //private void StopBlinking()
-    //{
-    //    StopCoroutine(Blink());
-    //}
+    private void StopBlinking()
+    {
+        StopCoroutine(Blink());
+    }
 }
