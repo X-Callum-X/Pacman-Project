@@ -155,7 +155,7 @@ public class GhostFrightened : GhostBehaviour
         float timer = 0f;
         Time.timeScale = startScale; // Ensure it starts at 0
         pacmanSprite.enabled = false;
-        ghostScoreText.text = (this.ghost.points * (this.gameManager.ghostMultiplier / 2)).ToString();
+        ghostScoreText.text = (gameManager.ghostScoreValue).ToString();
         ghostScoreText.gameObject.SetActive(true);
         pauseManager.canPause = false;
 
