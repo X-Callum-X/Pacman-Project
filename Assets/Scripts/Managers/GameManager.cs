@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Variables")]
     public float frightenedDuration = 0;
+
+    public int ghostScoreValue { get; private set; }
     public int ghostMultiplier { get; private set; } = 1;
     public int score { get; private set; }
     public int highscore { get; private set; }  
@@ -301,7 +303,17 @@ public class GameManager : MonoBehaviour
         SFXManager.PlaySFX(SFX.GHOST_EATEN);
 
         int points = ghost.points * this.ghostMultiplier;
-        SetScore(this.score + points);
+
+        if (points > 3200)
+        {
+            ghostScoreValue = 7650;
+        }
+        else
+        {
+            ghostScoreValue = points;
+        }
+
+        SetScore(this.score + ghostScoreValue);
         this.ghostMultiplier = this.ghostMultiplier * 2;
     }
 
