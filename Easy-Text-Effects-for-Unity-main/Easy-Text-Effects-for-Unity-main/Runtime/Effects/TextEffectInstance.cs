@@ -72,7 +72,7 @@ namespace EasyTextEffects.Effects
         [FoldBox("Time Explained",
             new[] { "ScaledTime -- dependent on time scale \nUnscaledTime -- independent of time scale", },
             new[] { ContentType.Text })]
-        public TimeUtil.TimeType timeType = TimeUtil.TimeType.ScaledTime;
+        public TimeUtil.TimeType timeType = TimeUtil.TimeType.UnscaledTime;
 
 
         protected float startTime;

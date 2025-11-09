@@ -31,8 +31,8 @@ Material:
     m_Floats:
     - _MiddlePosition: 0.2
     m_Colors:
-    - _BottomColour: {r: 0.078758955, g: 0.12861334, b: 0.5366906, a: 1}
+    - _BottomColour: {r: 0.085403726, g: 0.10629359, b: 0.48233774, a: 1}
     - _MiddleColour: {r: 0.75, g: 0.75, b: 0.24999997, a: 1}
-    - _TopColour: {r: 0.3029961, g: 0.35801652, b: 0.8040757, a: 1}
+    - _TopColour: {r: 0.1269607, g: 0.21380936, b: 0.9179043, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
