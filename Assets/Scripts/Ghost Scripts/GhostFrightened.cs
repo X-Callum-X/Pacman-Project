@@ -5,7 +5,7 @@ using TMPro;
 
 public class GhostFrightened : GhostBehaviour
 {
-    public GhostSirenManager sirenManager;
+    public PlayGhostSirens sirenManager;
     public SpriteRenderer body;
     public SpriteRenderer eyes;
     public SpriteRenderer blue;
@@ -29,7 +29,7 @@ public class GhostFrightened : GhostBehaviour
 
     public override void Enable(float duration)
     {
-        this.sirenManager.ghostSiren.Stop();
+        GhostSirenManager.instance.sirenSource.Stop();
         this.eaten = false;
         base.Enable(duration);
 

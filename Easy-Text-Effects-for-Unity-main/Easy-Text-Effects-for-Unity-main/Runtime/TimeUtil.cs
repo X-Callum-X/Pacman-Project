@@ -16,7 +16,7 @@ namespace EasyTextEffects
             UnscaledTime, // independent of time scale
         }
 
-        public static float GetTime(TimeType timeType = TimeType.ScaledTime)
+        public static float GetTime(TimeType timeType = TimeType.UnscaledTime)
         {
             if (Application.isPlaying)
             {

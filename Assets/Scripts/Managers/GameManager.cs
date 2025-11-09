@@ -19,16 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject keyObject;
 
     [Header("Audio Elements")]
-    public AudioSource source;
-    public AudioClip waka1;
-    public AudioClip waka2;
-    public AudioClip pacDeath;
-    public AudioClip ghostEaten;
-    public AudioClip extraLife;
-    public AudioClip fruitEaten;
+    //public AudioSource source;
 
     public bool isMusicPlaying = false;
-    public bool isGhostSirenPlaying = false;
+    public bool isSFXSourcePlaying = false;
 
     [Header("UI Elements")]
     public Text scoreText;
@@ -103,7 +97,7 @@ public class GameManager : MonoBehaviour
         {
             gotExtraLife = true;
             this.lives += 1;
-            source.PlayOneShot(extraLife);
+            SFXManager.PlaySFX(SFX.EXTRA_LIFE);
 
             if (this.lives == 2)
             {
@@ -210,7 +204,7 @@ public class GameManager : MonoBehaviour
     private void ResetState()
     {
         isMusicPlaying = true;
-        isGhostSirenPlaying = true;
+        isSFXSourcePlaying = true;
         isPacmanDead = false;
 
         // Control lives UI
@@ -304,7 +298,7 @@ public class GameManager : MonoBehaviour
 
     public void GhostEaten(Ghost ghost)
     {
-        source.PlayOneShot(ghostEaten);
+        SFXManager.PlaySFX(SFX.GHOST_EATEN);
 
         int points = ghost.points * this.ghostMultiplier;
         SetScore(this.score + points);
@@ -314,7 +308,7 @@ public class GameManager : MonoBehaviour
     public void PacmanEaten()
     {
         isMusicPlaying = false;
-        isGhostSirenPlaying = false;
+        isSFXSourcePlaying = false;
 
         this.pacman.gameObject.SetActive(false);
 
@@ -324,7 +318,7 @@ public class GameManager : MonoBehaviour
         {
             isPacmanDead = true;
             SetLives(this.lives - 1);
-            source.PlayOneShot(pacDeath);
+            SFXManager.PlaySFX(SFX.PAC_DEATH);
         }
 
         // Determine if game over needs to happen
@@ -345,11 +339,11 @@ public class GameManager : MonoBehaviour
         // Play audio for even and odd pellets eaten
         if (pelletsEaten % 2 == 0)
         {
-            source.PlayOneShot(waka2);
+            SFXManager.PlaySFX(SFX.WAKA_2);
         }
         else
         {
-            source.PlayOneShot(waka1);
+            SFXManager.PlaySFX(SFX.WAKA_1);
         }
 
         pellet.gameObject.SetActive(false);
@@ -360,9 +354,9 @@ public class GameManager : MonoBehaviour
         if (!HasRemainingPellets())
         {
             isMusicPlaying = false;
-            isGhostSirenPlaying= false;
+            isSFXSourcePlaying = false;
 
-            source.Stop();
+            //source.Stop();
 
             ResetFruit();
 
@@ -393,7 +387,7 @@ public class GameManager : MonoBehaviour
 
     public void FruitEaten(DestroyFruit fruit)
     {
-        source.PlayOneShot(fruitEaten);
+        SFXManager.PlaySFX(SFX.FRUIT_EATEN);
 
         if (fruit.gameObject.activeSelf)
         {

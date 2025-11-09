@@ -5,14 +5,14 @@ using UnityEngine;
 public class PauseManager : MonoBehaviour
 {
     public GameObject PauseMenu;
-    public AudioSource source;
-    public AudioClip pauseSFX;
+    public GameObject SettingsMenu;
     public bool isPaused;
     public bool canPause = true;
 
     void Start()
     {
         PauseMenu.SetActive(false);
+        SettingsMenu.SetActive(false);
         canPause = true;
     }
 
@@ -20,16 +20,11 @@ public class PauseManager : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) && canPause)
         {
-            if (!source.isPlaying)
-            {
-                source.PlayOneShot(pauseSFX);
-            }
-
-            if (isPaused)
+            if (isPaused && !SettingsMenu.activeSelf)
             {
                 ResumeGame();
             }
-            else
+            else if (!isPaused && !SettingsMenu.activeSelf)
             {
                 PauseGame();
             }
@@ -38,6 +33,9 @@ public class PauseManager : MonoBehaviour
 
     private void PauseGame()
     {
+        SFXManager.instance.sfxSource.Stop();
+        SFXManager.PlaySFX(SFX.POWER_PELLET);
+
         PauseMenu.SetActive(true);
         Time.timeScale = 0.0f;
         isPaused = true;
@@ -45,6 +43,8 @@ public class PauseManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        SFXManager.PlaySFX(SFX.POWER_PELLET);
+
         PauseMenu.SetActive(false);
         Time.timeScale = 1.0f;
         isPaused = false;
